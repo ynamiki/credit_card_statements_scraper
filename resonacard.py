@@ -2,6 +2,7 @@ import csv
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 
 def login(driver, user, password):
@@ -13,7 +14,10 @@ def login(driver, user, password):
 
 def download(driver):
     driver.find_element(by=By.XPATH, value="//a/img[@alt='ご利用明細照会']").click()
-    driver.find_element(by=By.XPATH, value="//a/img[@alt='WEB明細ダウンロード']").click()
+    try:
+        driver.find_element(by=By.XPATH, value="//a/img[@alt='WEB明細ダウンロード']").click()
+    except NoSuchElementException:
+        pass
 
 
 if __name__ == "__main__":
